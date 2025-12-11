@@ -26,8 +26,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-#      - name: Run tests
-#        run: ./gradlew test
+      # - name: Run tests
+      #   run: ./gradlew test
 
       - name: Build jar
         run: ./gradlew bootJar -x test
@@ -63,9 +63,9 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          # ✅ EC2의 ~/wms-docker/ 루트에 바로 복사
           source: "deploy-artifacts/${{ env.JAR_FILE }}"
-          target: "~/wms-docker/"
+          target: "~/wms-docker"
+          strip_components: 1      # 🔥 이 줄이 핵심 (폴더 경로 제거)
           overwrite: true
 
       - name: Deploy on EC2
@@ -83,7 +83,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            # ✅ 방금 scp로 가져온 파일을 app.jar로 사용
+            # 방금 복사된 jar를 app.jar로 사용
             cp "$JAR_FILE" app.jar
 
             docker compose down
