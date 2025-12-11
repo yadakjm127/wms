@@ -1,0 +1,58 @@
+/* 페이지 레이아웃 — index.css 변수(색/그리드/버튼 등) 그대로 사용 */
+.auth-wrap {
+  padding: 36px;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1.2fr minmax(380px, 480px);
+  gap: 36px;
+  align-items: start;
+}
+
+.auth-copy .auth-title {
+  margin: 0 0 10px;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+.auth-copy .auth-desc {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.auth-alert {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  font-weight: 700;
+  box-shadow: var(--shadow-1);
+  background: #fff;
+}
+.auth-alert.ok { background: #ecfdf5; border-color: #bbf7d0; color: #065f46; }
+.auth-alert.warn { background: #fff7ed; border-color: #fde68a; color: #a16207; }
+.auth-alert.info { background: #eff6ff; border-color: #bfdbfe; color: #1e3a8a; }
+
+.auth-form {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+
+.form-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.form-row label { font-weight: 800; color: #1f2937; }
+.form-row input {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.form-actions { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
+
+@media (max-width: 1140px){
+  .auth-grid { grid-template-columns: 1fr; }
+}

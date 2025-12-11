@@ -1,0 +1,76 @@
+:root{
+  --bg:#f7f6f3; --ink:#0f172a; --muted:#6b7280; --card:#fff; --line:#e8e5de;
+  --brand:#6c63ff; --brand-600:#5b54e6;
+  --radius-lg:22px; --radius-md:16px; --radius-sm:12px;
+  --shadow-1:0 10px 26px -14px rgba(2,6,23,.08);
+  --shadow-2:0 24px 56px -20px rgba(2,6,23,.12);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none} /* 링크 밑줄 제거 */
+.page-body{display:flex;flex-direction:column;min-height:100vh}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(120%) blur(8px);background:rgba(255,255,255,.9);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1520px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand-area{display:flex;flex-direction:column}
+.brand-name{font-weight:900;letter-spacing:.2px}
+.brand-name:hover{color:var(--brand)}
+.brand-tagline{font-size:.78rem;color:#94a3b8;margin-top:2px}
+.main-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.nav-link{padding:10px 14px;border-radius:12px;font-weight:800;color:#1f2937}
+.nav-link:hover{background:#f3f4f6}
+.nav-link.is-active{background:#eef2ff}
+
+/* layout */
+.main-wrapper{max-width:1200px;margin:36px auto 100px;padding:0 24px}
+.page-title{margin:0 0 18px;font-size:1.9rem;font-weight:900}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.card{
+  grid-column:span 4; /* 3열 고정, 부족 시 빈칸 없이 꽉 채움 */
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-2);padding:18px;display:flex;flex-direction:column;gap:10px;
+}
+@media (max-width:1100px){.card{grid-column:span 6}} /* 2열 */
+@media (max-width:720px){.card{grid-column:span 12}} /* 1열 */
+
+.study .head{display:flex;align-items:center;gap:10px}
+.title{margin:0;font-size:1.15rem;font-weight:900}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
+  background:#eef2ff;color:#1e40af;border:1px solid #dbeafe;font-weight:800;font-size:.8rem;
+}
+.meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.95rem}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;
+  background:#ecfdf5;color:#065f46;border:1px solid #bbf7d0;font-weight:800;font-size:.78rem;
+}
+.dot{opacity:.6}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 18px;border-radius:18px;font-weight:900;cursor:pointer;
+  border:1px solid var(--line);white-space:nowrap;transition:transform .12s,background .2s,color .2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-black{background:#111827;color:#fff;border-color:#111827}
+
+/* empty */
+.empty{
+  grid-column:1 / -1;
+  background:#fff;border:1px dashed var(--line);border-radius:18px;padding:32px;text-align:center;color:var(--muted)
+}
+
+/* footer */
+.site-footer{background:#fff;border-top:1px solid var(--line);padding:36px 44px 50px;margin-top:auto;color:#94a3b8;font-size:.88rem}
+.footer-inner{max-width:1520px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.footer-logo{color:#0f172a;font-weight:900}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:#6b7280}
+.footer-links a:hover{color:#0f172a}
+.footer-copy{max-width:1520px;margin:0 auto;color:#9ca3af;font-size:.78rem;text-align:center}

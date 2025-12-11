@@ -1,0 +1,79 @@
+/* ======================================
+   admin.css
+   - 관리자 대시보드 및 사용자 관리
+   ====================================== */
+
+/* 대시보드 그리드 */
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.admin-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.admin-card h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.admin-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* 사용자 목록 */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.user-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.user-table tr:hover {
+  background: #f1f5f9;
+}
+
+/* 통계 카드 */
+.stat-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.stat-title {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}

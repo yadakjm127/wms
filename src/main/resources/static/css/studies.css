@@ -1,0 +1,92 @@
+/* ======================================
+   studies.css
+   - 스터디 목록 / 생성 / 관리 페이지 전용
+   ====================================== */
+
+/* 스터디 목록 */
+.study-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.study-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.study-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.study-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.study-title a {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.study-title a:hover {
+  color: var(--brand);
+}
+
+.study-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+/* 스터디 생성 폼 */
+.study-form {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.study-form .form-row {
+  margin-bottom: 14px;
+}
+
+/* 참가자 목록 */
+.participant-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.participant-name {
+  font-weight: 500;
+}
+
+.participant-status {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* 출석 체크 */
+.attendance {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.attendance input[type="checkbox"] {
+  accent-color: var(--brand);
+}

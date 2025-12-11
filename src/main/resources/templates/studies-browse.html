@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mind Hub</title>
+  <!-- base.css 제거 요청 반영: studies-browse.css만 사용 -->
+  <link rel="stylesheet" href="/css/studies-browse.css" th:href="@{/css/studies-browse.css}">
+  <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}" />
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a href="/" class="brand-name">Mind Hub</a>
+      <span class="brand-tagline">스터디로 성장하다</span>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/browse">스터디 찾기</a>
+      <a class="nav-link" href="/studies/create" sec:authorize="isAuthenticated()">스터디 개설</a>
+      <a class="nav-link" href="/mypage" sec:authorize="isAuthenticated()">내 활동</a>
+      <a class="nav-link nav-admin" href="/admin" sec:authorize="hasRole('ADMIN')">관리</a>
+      <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button type="submit" class="auth-btn logout-btn">로그아웃</button>
+      </form>
+      <a class="auth-btn login-btn" href="/login" sec:authorize="!isAuthenticated()">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <h1>스터디 찾기</h1>
+
+  <!-- 검색바 (동작 비활성: 버튼 disabled) -->
+  <form class="search-bar" th:action="@{/studies/browse}" method="get">
+    <input class="input" type="text" placeholder="키워드 검색" name="q" th:value="${q}">
+    <select class="select" name="category">
+      <option value="">전체 카테고리</option>
+      <option th:each="c : ${categories}" th:value="${c}" th:text="${c}">개발</option>
+    </select>
+    <button class="btn primary" type="submit" disabled>검색</button>
+  </form>
+
+  <div class="cards">
+    <article class="study-card" th:each="s : ${popularStudies}">
+      <span class="badge" th:text="${s.badge}">모집중</span>
+      <h3 class="title" th:text="${s.title}">제목</h3>
+      <p class="intro" th:text="${s.intro}">간단 소개</p>
+
+      <div class="meta">
+        <span th:text="${s.memberCount + '명 참여중'}">5명 참여중</span>
+        <span>·</span>
+        <!-- #temporals 제거 → 컨트롤러에서 포맷한 문자열 사용 -->
+        <span th:text="${s.createdAtText}">2025.10.28</span>
+      </div>
+
+      <div class="tail">
+        <form th:action="@{'/studies/' + ${s.id} + '/apply'}" method="post">
+          <button class="btn sm apply-btn" type="submit">신청하기</button>
+        </form>
+        <a class="btn sm" th:href="@{'/studies/' + ${s.id}}">자세히</a>
+      </div>
+    </article>
+
+    <div class="empty" th:if="${#lists.isEmpty(popularStudies)}">표시할 스터디가 없습니다.</div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub.</div>
+</footer>
+
+<script src="/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="/js/csrf.js" th:src="@{/js/csrf.js}"></script>
+<script src="/js/studies-browse.js" th:src="@{/js/studies-browse.js}"></script>
+</body>
+</html>

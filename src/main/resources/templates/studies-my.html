@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>내 스터디 - Mind Hub</title>
+  <!-- base.css 사용 안 함 -->
+  <link rel="stylesheet" href="/css/studies-browse.css" th:href="@{/css/studies-browse.css}">
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a href="/" class="brand-name">Mind Hub</a>
+      <span class="brand-tagline">스터디로 성장하다</span>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/browse">스터디 찾기</a>
+      <a class="nav-link" href="/studies/create" sec:authorize="isAuthenticated()">스터디 개설</a>
+      <a class="nav-link" href="/mypage" sec:authorize="isAuthenticated()">내 활동</a>
+      <a class="nav-link nav-admin" href="/admin" sec:authorize="hasRole('ADMIN')">관리</a>
+      <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button type="submit" class="auth-btn logout-btn">로그아웃</button>
+      </form>
+      <a class="auth-btn login-btn" href="/login" sec:authorize="!isAuthenticated()">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <h1 th:text="${username} + '님의 스터디'">guest님의 스터디</h1>
+
+  <div class="cards">
+    <article class="study-card" th:each="s : ${myStudies}">
+      <span class="badge" th:text="${s.badge}">진행중</span>
+      <h3 class="title" th:text="${s.title}">제목</h3>
+      <p class="intro" th:text="${s.intro}">간단 소개</p>
+
+      <div class="meta">
+        <span th:text="${s.memberCount + '명 참여중'}">0명 참여중</span>
+        <span>·</span>
+        <span th:text="${s.createdAtText}">2025.10.28</span>
+      </div>
+
+      <div class="tail">
+        <a class="btn sm" th:href="@{'/studies/' + ${s.id}}">자세히</a>
+        <a class="btn sm" th:href="@{'/studies/' + ${s.id} + '/files'}">파일</a>
+      </div>
+    </article>
+
+    <div class="empty" th:if="${#lists.isEmpty(myStudies)}">참여 중인 스터디가 없습니다.</div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub.</div>
+</footer>
+
+<script src="/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="/js/csrf.js" th:src="@{/js/csrf.js}"></script>
+</body>
+</html>

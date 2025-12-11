@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mind Hub</title>
+
+  <!-- CSRF -->
+  <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}" />
+
+  <link rel="stylesheet" href="/css/posts.css" th:href="@{/css/posts.css}" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo-button">
+      <a href="/" class="logo-link">🧠 MIND HUB</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">홈</a></li>
+      <li><a href="/login" class="nav-link">로그인</a></li>
+      <li><a href="/posts" class="nav-link active">게시판</a></li>
+      <li><a href="/studies/browse" class="nav-link">스터디</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <h1>📢 자유 게시판</h1>
+    <p>스터디 모집부터 질문, 소통까지 자유롭게 이야기하세요.</p>
+  </header>
+
+  <section class="posts-section">
+    <div class="posts-header">
+      <h2>📜 게시글 목록</h2>
+      <a href="/posts/new" class="write-button">✍ 새 글 작성</a>
+    </div>
+
+    <div class="post-list">
+      <div class="post-card" th:each="post : ${posts}">
+        <h3 class="post-title">
+          <a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}">게시글 제목</a>
+        </h3>
+        <div class="post-meta">
+          <span th:text="${post.author}">작성자</span> ·
+          <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2025-10-23</span>
+        </div>
+
+        <div class="post-actions">
+          <button class="like-btn" th:attr="data-post-id=${post.id}"
+                  th:classappend="${post.likedByUser} ? ' liked' : ''">
+            ❤️ <span class="like-count" th:text="${post.likeCount}">0</span>
+          </button>
+
+          <button class="bookmark-btn" th:attr="data-post-id=${post.id}"
+                  th:classappend="${post.bookmarkedByUser} ? ' bookmarked' : ''">
+            📘 <span class="bookmark-count" th:text="${post.bookmarkCount}">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="empty" th:if="${#lists.isEmpty(posts)}">
+        아직 게시글이 없습니다. 첫 글을 작성해보세요!
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Mind Hub. All rights reserved.</p>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/csrf.js"></script>
+  <script src="/js/posts.js"></script>
+</body>
+</html>

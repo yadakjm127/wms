@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>회원가입 · Mind Hub</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/register.css" />
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-name">Mind Hub</span>
+      <span class="brand-tag">학습 · 커리어 스터디 플랫폼</span>
+    </a>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/browse">스터디 찾기</a>
+      <a class="nav-link" href="/login">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="auth-wrap card-lite">
+    <div class="auth-grid">
+      <div class="auth-copy">
+        <h1 class="auth-title">지금 시작해요 🚀</h1>
+        <p class="auth-desc">간단한 정보만 입력하면 Mind Hub를 사용할 수 있어요.</p>
+        <div class="auth-alert warn" th:if="${msg}" th:text="${msg}">유효성 메시지</div>
+      </div>
+
+      <div class="auth-form card">
+        <form method="post" action="/users/register" id="registerForm" novalidate>
+          <div class="form-row">
+            <label for="username">아이디</label>
+            <input id="username" name="username" type="text" autocomplete="username" required />
+          </div>
+          <div class="form-row">
+            <label for="password">비밀번호</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" required />
+          </div>
+          <div class="form-row">
+            <label for="nickname">닉네임 (선택)</label>
+            <input id="nickname" name="nickname" type="text" />
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">회원가입</button>
+            <a class="btn btn-outline" href="/login">로그인으로</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="/studies/browse">스터디 찾기</a>
+      <a href="/login">로그인</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub</div>
+</footer>
+
+<script src="/js/register.js"></script>
+</body>
+</html>

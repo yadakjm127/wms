@@ -1,0 +1,16 @@
+/* src/main/resources/static/css/my-activity.css */
+.grid-2 {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.sub {
+    margin: 6px 0 10px;
+    font-size: 1.05rem;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}

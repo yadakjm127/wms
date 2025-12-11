@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mind Hub</title>
+
+  <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}" />
+
+  <link rel="stylesheet" href="/css/index.css" th:href="@{/css/index.css}" />
+  <link rel="stylesheet" href="/css/post-form.css" th:href="@{/css/post-form.css}" />
+</head>
+
+<body class="page-body">
+
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a href="/" class="brand-name">Mind Hub</a>
+      <span class="brand-tagline">스터디로 성장하다</span>
+    </div>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <section class="post-card">
+    <h1 class="auth-title">스터디 개설</h1>
+    <p class="auth-desc">모집 공고를 등록하고 팀원을 모아보세요.</p>
+
+    <form th:action="@{/studies/create}" method="post" class="auth-form" enctype="multipart/form-data" novalidate>
+      <input type="hidden" th:if="${_csrf != null}"
+             th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+      <div class="form-row">
+        <label for="title" class="form-label">제목</label>
+        <input id="title" name="title" type="text" required class="form-input" placeholder="예) 토익 900+ 목표 스터디" />
+      </div>
+
+      <div class="grid-2">
+        <div class="form-row">
+          <label for="category" class="form-label">카테고리</label>
+          <select id="category" name="category" class="form-input" required>
+            <option value="" selected disabled>선택</option>
+            <option value="LANG">어학</option>
+            <option value="DEV">개발</option>
+            <option value="DESIGN">디자인</option>
+            <option value="CERT">자격증</option>
+            <option value="ETC">기타</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="capacity" class="form-label">모집 인원</label>
+          <input id="capacity" name="capacity" type="number" min="1" max="99" required class="form-input" placeholder="예) 5" />
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-row">
+          <label for="deadline" class="form-label">모집 마감일</label>
+          <input id="deadline" name="deadline" type="date" class="form-input" />
+        </div>
+        <div class="form-row">
+          <label for="startDate" class="form-label">시작 예정일</label>
+          <input id="startDate" name="startDate" type="date" class="form-input" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="tags" class="form-label">태그(쉼표 구분)</label>
+        <input id="tags" name="tags" type="text" class="form-input" placeholder="예) 토익,스터디,온라인" />
+      </div>
+
+      <div class="form-row">
+        <label for="content" class="form-label">상세 내용</label>
+        <textarea id="content" name="content" rows="8" class="form-input"
+                  placeholder="진행 방식, 시간/요일, 교재, 지원 조건 등을 자세히 적어주세요." required></textarea>
+      </div>
+
+      <div class="form-row">
+        <label for="files" class="form-label">첨부 파일(선택)</label>
+        <input id="files" name="files" type="file" class="form-input" multiple />
+      </div>
+
+      <div class="form-actions row-inline">
+        <a class="btn ghost" href="/studies/browse" th:href="@{/studies/browse}">취소</a>
+        <button type="submit" class="btn primary">등록하기</button>
+      </div>
+
+      <div class="alert bad" th:if="${param.error}">입력값을 다시 확인해 주세요.</div>
+      <div class="alert ok" th:if="${param.ok}">등록이 완료되었습니다.</div>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub</div>
+</footer>
+
+<script src="/js/post-form.js" th:src="@{/js/post-form.js}"></script>
+</body>
+</html>

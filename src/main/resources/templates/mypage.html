@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mind Hub</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/component.css" />
+  <link rel="stylesheet" href="/css/mypage.css" />
+  
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a href="/" class="brand-name">Mind Hub</a>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/browse">스터디 찾기</a>
+      <a class="nav-link" href="/studies/create">스터디 개설</a>
+      <a class="nav-link active" href="/mypage">마이페이지</a>
+      <a class="nav-link" href="/mypage/bookmarks">북마크</a>
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="auth-btn logout-btn">로그아웃</button>
+      </form>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <section class="summary-cards">
+    <div class="summary-card">
+      <div class="summary-icon">❤️</div>
+      <div class="summary-info">
+        <div class="summary-title">좋아요한 글</div>
+        <div class="summary-value" th:text="${likeCount}">0</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">📘</div>
+      <div class="summary-info">
+        <div class="summary-title">북마크한 글</div>
+        <div class="summary-value" th:text="${bookmarkCount}">0</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel card">
+    <h1 class="panel-title" th:text="'👋 ' + ${username} + '님, 안녕하세요!'">마이페이지</h1>
+    <p>좋아요와 북마크 수는 위에서 확인할 수 있습니다.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-copy">© 2025 Mind Hub. All rights reserved.</div>
+</footer>
+</body>
+</html>

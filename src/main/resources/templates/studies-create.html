@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mind Hub · 스터디 개설</title>
+  <link rel="stylesheet" href="/css/studies-create.css" th:href="@{/css/studies-create.css}">
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a href="/" class="brand-name">Mind Hub</a>
+      <span class="brand-tagline">스터디로 성장하다</span>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link" th:href="@{/studies/browse}">스터디 찾기</a>
+      <a class="nav-link is-active" th:href="@{/studies/create}">스터디 개설</a>
+      <a class="nav-link" th:href="@{/mypage}">내 활동</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <h1 class="page-title">스터디 개설</h1>
+
+  <form class="card form">
+    <div class="field">
+      <label for="title">제목</label>
+      <input id="title" name="title" type="text" class="input" placeholder="예) 자바 웹 개발 스터디">
+    </div>
+
+    <div class="field">
+      <label for="intro">소개</label>
+      <textarea id="intro" name="intro" class="textarea" rows="6" placeholder="스터디 소개를 작성하세요."></textarea>
+    </div>
+
+    <div class="field grid-2">
+      <div>
+        <label for="category">카테고리</label>
+        <select id="category" name="category" class="select">
+          <option value="">선택</option>
+          <option>개발</option>
+          <option>디자인</option>
+          <option>어학</option>
+        </select>
+      </div>
+      <div>
+        <label for="capacity">정원</label>
+        <input id="capacity" name="capacity" type="number" min="1" class="input" placeholder="예) 8">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-black">임시저장</button>
+      <button type="submit" class="btn btn-primary">개설하기</button>
+    </div>
+    <p class="hint">※ 현재 데모 폼이며 제출 시 서버 저장은 하지 않습니다.</p>
+  </form>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub.</div>
+</footer>
+
+<script>
+  // 데모용 제출 막기
+  document.addEventListener('submit', (e) => {
+    if (e.target.matches('form.form')) {
+      e.preventDefault();
+      alert('데모 폼: 서버 저장은 구현되어 있지 않습니다.');
+    }
+  });
+</script>
+</body>
+</html>

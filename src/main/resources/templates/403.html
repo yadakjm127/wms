@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mind Hub</title>
+  <link rel="stylesheet" href="/css/error.css" th:href="@{/css/error.css}" />
+</head>
+<body class="error-body">
+  <div class="wrap">
+    <h1>403 Forbidden</h1>
+    <p>이 페이지에 접근할 권한이 없습니다.</p>
+    <!-- ✅ 서비스에서 온 커스텀 메시지가 있을 경우 출력 -->
+    <p th:if="${message}" th:text="${message}" class="msg"></p>
+    <a class="home-link" href="/">홈으로</a>
+  </div>
+</body>
+</html>

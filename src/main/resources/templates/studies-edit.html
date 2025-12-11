@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mind Hub - 스터디 수정</title>
+  <link rel="stylesheet" href="/css/theme.css"/>
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand-area">
+      <a class="brand-name" href="/studies-browse.html">Mind Hub</a>
+      <span class="brand-tagline">스터디로 성장하다</span>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies-browse.html">목록</a>
+      <a class="btn ghost sm" id="detailLink" href="#">상세</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrapper">
+  <h1>스터디 수정</h1>
+
+  <form class="form card" id="form" style="padding:20px" hidden>
+    <div class="form-row">
+      <label for="title">제목</label>
+      <input id="title" class="input" required maxlength="60" />
+    </div>
+    <div class="form-row">
+      <label for="intro">간단 소개</label>
+      <textarea id="intro" rows="4" maxlength="300"></textarea>
+    </div>
+    <div class="form-row form-row--cols">
+      <div>
+        <label for="category">카테고리</label>
+        <select id="category" class="select">
+          <option value="">선택 없음</option>
+          <option>개발</option><option>데이터</option><option>디자인</option><option>어학</option>
+        </select>
+      </div>
+      <div>
+        <label for="memberCount">인원</label>
+        <input id="memberCount" class="input" type="number" min="0"/>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" type="submit">저장</button>
+      <a class="btn ghost" id="cancelBtn" href="#">취소</a>
+    </div>
+  </form>
+
+  <div class="empty" id="notFound" hidden>존재하지 않는 스터디입니다.</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner"><div class="footer-logo">Mind Hub</div></div>
+  <div class="footer-copy">© 2025 Mind Hub.</div>
+</footer>
+
+<script type="module" src="/js/studies-edit.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mind Hub</title>
+
+  <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}" />
+
+  <link rel="stylesheet" href="/css/index.css" th:href="@{/css/index.css}">
+</head>
+<body class="page-body">
+
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand">
+      <a href="/" class="brand-name">Mind Hub</a>
+      <span class="brand-tag">스터디로 성장하다</span>
+    </div>
+
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/my" sec:authorize="isAuthenticated()">내 활동</a>
+      <a class="nav-link nav-admin" href="/admin" sec:authorize="hasRole('ADMIN')">관리</a>
+
+      <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <input type="hidden" th:if="${_csrf != null}"
+               th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" class="btn btn-outline">로그아웃</button>
+      </form>
+
+      <a class="btn btn-solid" href="/login" sec:authorize="!isAuthenticated()">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero card">
+      <div>
+        <h1 class="hero-title">너만의 스터디를 만들고,<br/>성장까지 한 곳에서.</h1>
+        <p class="hero-desc">
+          공부 · 자격증 · 취업 준비 · 취미까지.<br/>
+          스터디 모집/진행/리뷰를 한 번에 관리하세요.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/studies/create">스터디 만들기</a>
+          <a class="btn btn-outline" href="/studies/browse">진행 중 스터디 보기</a>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="mini card-lite">
+          <div class="mini-label">오늘 새로 열린 스터디</div>
+          <div class="mini-value" th:text="${todayNewTeams != null ? '+' + todayNewTeams + '팀' : '+0팀'}">+0팀</div>
+        </div>
+        <div class="mini card-lite">
+          <div class="mini-label">이번 주 참여 신청</div>
+          <div class="mini-value" th:text="${thisWeekApplications != null ? thisWeekApplications + '건' : '0건'}">0건</div>
+        </div>
+        <div class="mini-hint">실시간으로 늘어나는 팀원들과 함께 해보세요.</div>
+      </aside>
+    </section>
+
+    <!-- Quick actions (한 줄 고정, 권한별 자동 재배치) -->
+    <section class="quick">
+      <div class="qa-grid qa-grid--one-row">
+        <a class="qa card-lite" href="/studies/browse">
+          <div class="qa-icon" aria-hidden="true">🔎</div>
+          <div class="qa-body">
+            <div class="qa-title">스터디 찾기</div>
+            <div class="qa-desc">관심 분야 팀을 바로 신청</div>
+          </div>
+        </a>
+
+        <a class="qa card-lite" href="/studies/create">
+          <div class="qa-icon" aria-hidden="true">🚀</div>
+          <div class="qa-body">
+            <div class="qa-title">스터디 개설</div>
+            <div class="qa-desc">모집 공고 만들고 인원 관리</div>
+          </div>
+        </a>
+
+        <a class="qa card-lite" href="/studies/my" sec:authorize="isAuthenticated()">
+          <div class="qa-icon" aria-hidden="true">📊</div>
+          <div class="qa-body">
+            <div class="qa-title">내 활동</div>
+            <div class="qa-desc">진행중/지난 스터디 현황</div>
+          </div>
+        </a>
+
+        <a class="qa card-lite admin" href="/admin" sec:authorize="hasRole('ADMIN')">
+          <div class="qa-icon" aria-hidden="true">🛠</div>
+          <div class="qa-body">
+            <div class="qa-title">관리</div>
+            <div class="qa-desc">관리자 대시보드</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Stats & Quote -->
+    <section class="stats">
+      <div class="stat card">
+        <div class="stat-head">지금 인기 스터디 🔥</div>
+        <ul class="stat-list">
+          <li class="stat-item">
+            <span>토익 900+ 목표반</span><span class="chip">모집중</span>
+          </li>
+          <li class="stat-item">
+            <span>자바 개발자 취업 스터디</span><span class="chip chip-warn">마감임박</span>
+          </li>
+          <li class="stat-item">
+            <span>UX 포트폴리오 피드백 소모임</span><span class="chip chip-new">신규</span>
+          </li>
+        </ul>
+        <a class="more" href="/studies/browse">전체 보기 →</a>
+      </div>
+
+      <div class="stat card quote">
+        <div class="quote-head">오늘의 한 마디</div>
+        <div class="quote-box">
+          <div class="quote-text">느려도 괜찮아.<br/>중요한 건 멈추지 않는 거야.</div>
+        </div>
+        <div class="today">
+          <div class="today-label">오늘 날짜</div>
+          <div class="today-value" id="today-text">-</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Mind Hub</div>
+      <div>함께 하는 공부가 결국 오래 간다.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub. All rights reserved.</div>
+</footer>
+
+<script src="/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="/js/csrf.js" th:src="@{/js/csrf.js}"></script>
+<script defer src="/js/index.js" th:src="@{/js/index.js}"></script>
+</body>
+</html>

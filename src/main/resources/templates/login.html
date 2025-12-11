@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>로그인 · Mind Hub</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800;900&display=swap" rel="stylesheet" />
+
+  <!-- 공통 스타일 (사이트 전체 스타일) -->
+  <link rel="stylesheet" href="/css/index.css" />
+  <!-- 로그인 전용 보조 스타일 -->
+  <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body class="page-body">
+<header class="site-header">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-name">Mind Hub</span>
+      <span class="brand-tag">학습 · 커리어 스터디 플랫폼</span>
+    </a>
+    <nav class="main-nav">
+      <a class="nav-link" href="/studies/browse">스터디 찾기</a>
+      <a class="nav-link" href="/users/register">회원가입</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="auth-wrap card-lite">
+    <div class="auth-grid">
+      <div class="auth-copy">
+        <h1 class="auth-title">다시 만나 반가워요 👋</h1>
+        <p class="auth-desc">Mind Hub에 로그인하고 스터디를 이어가세요.</p>
+
+        <div class="auth-alert ok" th:if="${registered}">
+          회원가입이 완료되었습니다. 이제 로그인하세요.
+        </div>
+        <div class="auth-alert warn" th:if="${param.error}">
+          아이디 또는 비밀번호를 확인하세요.
+        </div>
+        <div class="auth-alert info" th:if="${logout}">
+          로그아웃되었습니다.
+        </div>
+      </div>
+
+      <div class="auth-form card">
+        <form method="post" action="/login" id="loginForm" novalidate>
+          <div class="form-row">
+            <label for="username">아이디</label>
+            <input id="username" name="username" type="text" autocomplete="username" required />
+          </div>
+          <div class="form-row">
+            <label for="password">비밀번호</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">로그인</button>
+            <a class="btn btn-outline" href="/users/register">회원가입</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Mind Hub</div>
+    <div class="footer-links">
+      <a href="/studies/browse">스터디 찾기</a>
+      <a href="/users/register">회원가입</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Mind Hub</div>
+</footer>
+
+<script src="/js/login.js"></script>
+</body>
+</html>

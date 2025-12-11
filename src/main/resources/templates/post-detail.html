@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mind Hub</title>
+
+    <link rel="stylesheet" href="/css/post-detail.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo-button"><a href="/" class="logo-link">🧠 MIND HUB</a></div>
+    <ul class="nav-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/posts" class="active">게시판</a></li>
+        <li><a href="/login">로그인/회원가입</a></li>
+    </ul>
+</nav>
+
+<section class="detail-wrapper">
+    <article class="detail-card">
+        <h2 class="detail-title" th:text="${post.title}">게시글 제목</h2>
+        <div class="detail-meta">
+            <span class="detail-author" th:text="${post.author}">작성자아이디</span>
+            <span>·</span>
+            <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2025-10-23 12:00</span>
+        </div>
+        <div class="detail-content" th:text="${post.content}">게시글 내용이 여기에 표시됩니다.</div>
+    </article>
+
+    <div class="detail-actions">
+        <a href="/posts" class="btn btn-gray">목록으로</a>
+        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-primary">수정</a>
+        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post" class="delete-form">
+            <button type="submit" class="btn btn-dark delete-btn">삭제</button>
+        </form>
+    </div>
+</section>
+
+<footer class="footer"><p>&copy; 2025 Mind Hub. All rights reserved.</p></footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/csrf.js"></script>
+<script src="/js/post-detail.js"></script>
+</body>
+</html>

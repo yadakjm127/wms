@@ -1,0 +1,113 @@
+/* ======================================
+   posts.css
+   - 스터디 모집 게시판 및 글 목록 페이지 전용
+   ====================================== */
+
+/* 게시글 리스트 */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  background: #fff;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.post-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.post-title a {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.post-title a:hover {
+  color: var(--brand);
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.post-tag {
+  background: #eff6ff;
+  color: var(--brand-dark);
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/* 글쓰기 버튼 */
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+/* 게시글 상세 */
+.post-detail {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.post-detail h1 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.post-detail .meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.post-content {
+  line-height: 1.7;
+  color: #1f2937;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.like-btn,
+.bookmark-btn {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.like-btn:hover,
+.bookmark-btn:hover {
+  background: #f1f5f9;
+}
