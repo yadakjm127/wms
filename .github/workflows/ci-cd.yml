@@ -63,8 +63,9 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
+          # ✅ EC2의 ~/wms-docker/ 루트에 바로 복사
           source: "deploy-artifacts/${{ env.JAR_FILE }}"
-          target: "~/wms-docker/build/libs/"
+          target: "~/wms-docker/"
           overwrite: true
 
       - name: Deploy on EC2
@@ -78,10 +79,13 @@ jobs:
           script: |
             set -e
             cd ~/wms-docker
+
             git fetch origin main
             git reset --hard origin/main
 
-            cp ./build/libs/$JAR_FILE ./app.jar
+            # ✅ 방금 scp로 가져온 파일을 app.jar로 사용
+            cp "$JAR_FILE" app.jar
+
             docker compose down
             docker compose up -d --build
             docker ps
