@@ -65,7 +65,7 @@ jobs:
           port: 22
           source: "deploy-artifacts/${{ env.JAR_FILE }}"
           target: "~/wms-docker"
-          strip_components: 1      # 🔥 이 줄이 핵심 (폴더 경로 제거)
+          strip_components: 1
           overwrite: true
 
       - name: Deploy on EC2
@@ -86,6 +86,6 @@ jobs:
             # 방금 복사된 jar를 app.jar로 사용
             cp "$JAR_FILE" app.jar
 
-            docker compose down
-            docker compose up -d --build
-            docker ps
+            docker-compose down
+            docker-compose up -d --build
+            docker-compose ps
