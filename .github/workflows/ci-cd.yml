@@ -81,7 +81,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            cp build/libs/$JAR_FILE ./app.jar
+            cp ./build/libs/$JAR_FILE ./app.jar
             docker compose down
             docker compose up -d --build
             docker ps
