@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 env:
-  JAR_FILE: wms-0.0.1-SNAPSHOT.jar
+  JAR_FILE: First_Project-0.0.1-SNAPSHOT.jar
 
 jobs:
   build-test:
