@@ -7,11 +7,13 @@ on:
     branches: ["main"]
 
 env:
+  # 💡 build/libs 안에 생길 jar 파일 이름 그대로
   JAR_FILE: movie_project_team-0.0.1-SNAPSHOT.jar
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,9 +21,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'gradle'
+          java-version: "17"
+          distribution: "temurin"
+          cache: "gradle"
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -63,9 +65,9 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
+          # GitHub Runner → EC2 로 복사
           source: "deploy-artifacts/${{ env.JAR_FILE }}"
           target: "~/wms-docker"
-          strip_components: 1
           overwrite: true
 
       - name: Deploy on EC2
@@ -86,6 +88,6 @@ jobs:
             # 방금 복사된 jar를 app.jar로 사용
             cp "$JAR_FILE" app.jar
 
-            docker-compose down
+            docker-compose down || true
             docker-compose up -d --build
             docker-compose ps
