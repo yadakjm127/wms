@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: ["main"]
 
-env:
-  # 💡 build/libs 안에 생길 jar 파일 이름 그대로
-  JAR_FILE: movie_project_team-0.0.1-SNAPSHOT.jar
-
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -37,11 +33,12 @@ jobs:
       - name: Check built jar
         run: ls -l build/libs/
 
+      # ✅ jar 이름 상관없이 build/libs 안의 모든 jar 업로드
       - name: Upload jar artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
-          path: build/libs/${{ env.JAR_FILE }}
+          path: build/libs/*.jar
 
   deploy:
     needs: build-test
@@ -52,12 +49,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # ✅ 위에서 올린 app-jar 통째로 다운로드
       - name: Download jar artifact
         uses: actions/download-artifact@v4
         with:
           name: app-jar
           path: ./deploy-artifacts
 
+      # ✅ jar 파일 이름 몰라도 됨: *.jar 전부 EC2의 wms-docker 폴더로 복사
       - name: Copy jar to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -65,8 +64,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          # GitHub Runner → EC2 로 복사
-          source: "deploy-artifacts/${{ env.JAR_FILE }}"
+          source: "deploy-artifacts/*.jar"
           target: "~/wms-docker"
           overwrite: true
 
@@ -77,17 +75,20 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          envs: JAR_FILE
           script: |
             set -e
             cd ~/wms-docker
 
+            # Git 최신 코드로 맞추기
             git fetch origin main
             git reset --hard origin/main
 
-            # 방금 복사된 jar를 app.jar로 사용
+            # ✅ 방금 복사된 jar 중 첫 번째를 app.jar로 사용
+            JAR_FILE=$(ls *.jar | head -n 1)
+            echo "사용할 JAR_FILE = $JAR_FILE"
             cp "$JAR_FILE" app.jar
 
+            # ✅ docker-compose 기준 (지금 이거 쓰고 있었음)
             docker-compose down || true
             docker-compose up -d --build
             docker-compose ps
